@@ -1,0 +1,46 @@
+{
+    "eslint.validate": [
+      {
+        "language": "vue",
+        "autoFix": true
+      },
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "javascriptreact",
+        "autoFix": true
+      }
+    ],
+    "eslint.autoFixOnSave": true,
+    "editor.formatOnSave": false,
+    "vetur.validation.template": false,
+    "editor.fontSize": 17,
+    "debug.console.fontSize": 17,
+    "terminal.integrated.fontSize": 17,
+    "markdown.preview.fontSize": 17,
+    "vim.easymotionMarkerFontSize": "17",
+    "editor.lineHeight": 24,
+    "editor.fontFamily": "Fira Code",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#ab307e",
+      "activityBar.activeBorder": "#25320e",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#25320e",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "titleBar.activeBackground": "#832561",
+      "titleBar.inactiveBackground": "#83256199",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveForeground": "#e7e7e799",
+      "statusBar.background": "#832561",
+      "statusBarItem.hoverBackground": "#ab307e",
+      "statusBar.foreground": "#e7e7e7"
+    },
+    "peacock.color": "#832561"
+  }
+  
