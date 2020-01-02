@@ -4,27 +4,25 @@ const typeDefs = gql`
     type Character { 
         id: ID 
         name: String
+        status: String
+        gender: String
+        image: String
     }
 
     type Query {
         characters: [Character]
+        character(id: ID!): Character
     }
 `
 
-const data = [
-    {
-        id: 1,
-        name: "Random name"
-    }, 
-    {
-        id: 2, 
-        name: "Another random name"
-    }
-]
+const data = require('./data')
 
 const resolvers = {
     Query: {
-        characters: () => data
+        characters: () => data,
+        character: (_, { id }) => {
+            return data.find( character => character.id == id)
+        }
     }
 }
 
