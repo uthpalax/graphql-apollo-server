@@ -13,6 +13,9 @@ const typeDefs = gql`
         characters: [Character]
         character(id: ID!): Character
     }
+    type Mutation {
+        addCharacter(name: String, status: String, gender: String, image: String): Character
+    }
 `
 
 const data = require('./data')
@@ -22,6 +25,17 @@ const resolvers = {
         characters: () => data,
         character: (_, { id }) => {
             return data.find( character => character.id == id)
+        }
+    },
+    Mutation: {
+        addCharacter(_, payload) {
+            const storeCharacter = {
+                id: 2342342, 
+                ...payload
+            }
+
+            data.push(storeCharacter)
+            return storeCharacter
         }
     }
 }
