@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server')
+const nanoid = require('nanoid')
 
 const typeDefs = gql`
     type Character { 
@@ -30,7 +31,7 @@ const resolvers = {
     Mutation: {
         addCharacter(_, payload) {
             const storeCharacter = {
-                id: 2342342, 
+                id: nanoid(), 
                 ...payload
             }
 
