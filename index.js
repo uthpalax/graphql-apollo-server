@@ -1,6 +1,6 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql, UserInputError } = require('apollo-server')
+const Joi = require('@hapi/joi')
 const mongoose = require('mongoose')
-const nanoid = require('nanoid')
 const Character = require('./models/Character')
 
 mongoose.connect('mongodb://localhost:27017/doingiteasychannel-db', {useNewUrlParser: true, useUnifiedTopology: true });
@@ -8,8 +8,8 @@ mongoose.connect('mongodb://localhost:27017/doingiteasychannel-db', {useNewUrlPa
 const typeDefs = gql`
     type Character { 
         id: ID 
-        name: String
-        status: String
+        name: String!
+        status: String!
         gender: String
         image: String
     }
@@ -19,11 +19,9 @@ const typeDefs = gql`
         character(id: ID!): Character
     }
     type Mutation {
-        addCharacter(name: String, status: String, gender: String, image: String): Character
+        addCharacter(name: String!, status: String!, gender: String, image: String): Character
     }
 `
-
-const data = require('./data')
 
 const resolvers = {
     Query: {
@@ -38,7 +36,20 @@ const resolvers = {
     },
     Mutation: {
         addCharacter(_, payload) {
-            return Character.create(payload)
+            const schema = Joi.object({
+                name: Joi.string().alphanum().min(3).max(30).required(),
+                status: Joi.string().required(), 
+                gender: Joi.string().allow(''),
+                image: Joi.string().allow('')
+            })
+
+            const { value, error } = schema.validate(payload, { abortEarly: false })
+            if ( error ) {
+                throw new UserInputError('Failed to create a character due to validation errors', {
+                    validationErrros: error.details 
+                }) 
+            }
+            return Character.create(value)
         }
     }
 }
