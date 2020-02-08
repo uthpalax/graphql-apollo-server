@@ -16,11 +16,11 @@
     "eslint.autoFixOnSave": true,
     "editor.formatOnSave": false,
     "vetur.validation.template": false,
-    "editor.fontSize": 22,
-    "debug.console.fontSize": 19,
-    "terminal.integrated.fontSize": 19,
-    "markdown.preview.fontSize": 19,
-    "vim.easymotionMarkerFontSize": "19",
+    "editor.fontSize": 16,
+    "debug.console.fontSize": 16,
+    "terminal.integrated.fontSize": 16,
+    "markdown.preview.fontSize": 16,
+    "vim.easymotionMarkerFontSize": "16",
     "editor.lineHeight": 24,
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
