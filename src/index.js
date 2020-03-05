@@ -5,8 +5,10 @@ const bcrypt = require('bcrypt')
 const lodash = require('lodash')
 const fs = require('fs')
 const path = require('path')
+require('dotenv').config()
 const { Character, validateCharacter } = require('./models/Character')
 const { User, validateUser } = require('./models/User')
+const { sendConfirmationEmail } = require('./services/EmailService')
 
 mongoose.connect('mongodb://localhost:27017/doingiteasychannel-db', 
     {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
@@ -46,9 +48,11 @@ const resolvers = {
                 password
             })
 
+            sendConfirmationEmail(user)
+
             const token = await jwt.sign({
                 _id: registerUser._id
-            }, 'topSecret')
+            }, process.env.JWT_SECRET_KEY)
 
             return {
                 token,

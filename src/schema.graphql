@@ -10,7 +10,6 @@ type User {
     id: ID
     name: String!
     email: String!
-    password: String!
 }
 
 input UserInput {
@@ -32,4 +31,5 @@ type Query {
 type Mutation {
     addCharacter(name: String!, status: String!, gender: String, image: String): Character
     signup(user: UserInput): AuthPayload 
+    confirmEmail(token: String!): Boolean
 }

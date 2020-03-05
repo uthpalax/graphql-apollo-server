@@ -13,18 +13,21 @@
         "autoFix": true
       }
     ],
-    "eslint.autoFixOnSave": true,
+    "eslint.codeActionsOnSave": true,
     "editor.formatOnSave": false,
     "vetur.validation.template": false,
-    "editor.fontSize": 16,
-    "debug.console.fontSize": 16,
-    "terminal.integrated.fontSize": 16,
-    "markdown.preview.fontSize": 16,
-    "vim.easymotionMarkerFontSize": "16",
-    "editor.lineHeight": 24,
+    "editor.fontSize": 18,
+    "debug.console.fontSize": 18,
+    "terminal.integrated.fontSize": 18,
+    "markdown.preview.fontSize": 18,
+    "vim.easymotionMarkerFontSize": "18",
+    "editor.lineHeight": 30,
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
+    "editor.minimap.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
       "activityBar.background": "#ab307e",
       "activityBar.activeBorder": "#25320e",
