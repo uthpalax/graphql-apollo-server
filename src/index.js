@@ -48,7 +48,7 @@ const resolvers = {
                 password
             })
 
-            sendConfirmationEmail(user)
+            sendConfirmationEmail(registerUser)
 
             const token = await jwt.sign({
                 _id: registerUser._id
@@ -56,9 +56,18 @@ const resolvers = {
 
             return {
                 token,
-                user: lodash.pick(user, ['name', 'email'])
+                user: lodash.pick(user, ['id', 'name', 'email'])
             }
         },
+        async confirmEmail(_, { token }) {
+            try {
+                const verifyToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+                console.log('veriy token', verifyToken)
+                return true
+            } catch (err) {
+                return false
+            }
+        }
     }
 }
 

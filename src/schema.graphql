@@ -30,6 +30,6 @@ type Query {
 
 type Mutation {
     addCharacter(name: String!, status: String!, gender: String, image: String): Character
-    signup(user: UserInput): AuthPayload 
-    confirmEmail(token: String!): Boolean
+    signup(user: UserInput): AuthPayload
+    confirmEmail(token: String!): Boolean!
 }
