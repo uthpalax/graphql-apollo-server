@@ -1,74 +1,19 @@
 const { ApolloServer, UserInputError } = require('apollo-server')
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const lodash = require('lodash')
+
 const fs = require('fs')
 const path = require('path')
 require('dotenv').config()
-const { Character, validateCharacter } = require('./models/Character')
-const { User, validateUser } = require('./models/User')
-const { sendConfirmationEmail } = require('./services/EmailService')
+
+const Query = require('./Query')
+const Mutation = require('./Mutation')
 
 mongoose.connect('mongodb://localhost:27017/doingiteasychannel-db', 
     {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 const resolvers = {
-    Query: {
-        characters: () => Character.find({}, (error, characters) => {
-            if (error) console.log('error', error)
-            return characters
-        }),
-        character: (_, { id }) => Character.findById(id, (error, character) => {
-            if (error) console.log('error', error)
-            return character
-        })
-    },
-    Mutation: {
-        addCharacter(_, payload) {
-            const { value, error } = validateCharacter(payload, { abortEarly: false })
-            if ( error ) {
-                throw new UserInputError('Failed to create a character due to validation errors', {
-                    validationErrros: error.details 
-                }) 
-            }
-            return Character.create(value)
-        }, 
-        async signup(_, {user}) {
-            const { value, error } = validateUser(user)
-            if (error) {
-                throw new UserInputError('Failed to create a character due to validation errors', {
-                    validationErrros: error.details 
-                })
-            }
-
-            const password = await bcrypt.hash(user.password, 10)
-            const registerUser = await User.create({
-                ...value,
-                password
-            })
-
-            sendConfirmationEmail(registerUser)
-
-            const token = await jwt.sign({
-                _id: registerUser._id
-            }, process.env.JWT_SECRET_KEY)
-
-            return {
-                token,
-                user: lodash.pick(user, ['id', 'name', 'email'])
-            }
-        },
-        async confirmEmail(_, { token }) {
-            try {
-                const verifyToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-                console.log('veriy token', verifyToken)
-                return true
-            } catch (err) {
-                return false
-            }
-        }
-    }
+    Query,
+    Mutation
 }
 
 const server = new ApolloServer({

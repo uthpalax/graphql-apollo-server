@@ -21,6 +21,10 @@ const schema = new mongoose.Schema({
         minlength: 5, 
         maxlength: 1024
     },
+    emailVerified: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const User = mongoose.model('User', schema)
